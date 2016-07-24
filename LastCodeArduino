@@ -1,0 +1,47 @@
+#include "CurieIMU.h"
+#include <LiquidCrystal.h>
+
+LiquidCrystal lcd(4, 5, 10, 11, 12, 13);
+int kol = 0;
+char a;
+int buttonPin = 2
+
+void setup() {
+  pinMode(buttonPin, INTPUT)
+  lcd.begin(16, 2);
+  lcd.print("100");
+  delay(500);
+  lcd.clear();
+  
+  Serial.begin(9600); 
+  while (!Serial);   
+  Serial.println("Initializing IMU device..."); 
+  CurieIMU.begin();
+  CurieIMU.setGyroRange(250);
+}
+
+void loop() {
+  buttonState = digitlRead(buttonPin);
+  if(buttonState == HIGH)
+  {
+  
+    int gxRaw, gyRaw, gzRaw;         // переменные для «сырых» значений от гироскопа
+    //float gx, gy, gz; 
+    CurieIMU.readGyro(gxRaw, gyRaw, gzRaw); 
+    Serial.print("g:\t");
+    Serial.print(gzRaw);
+    delay(100);
+    Serial.println();
+    if (gzRaw > 8500)
+    {
+      kol++;
+      lcd.print("Good ");
+      lcd.print(kol);
+      delay(2000);
+      lcd.clear();
+    }
+  }
+}
+    
+
+
