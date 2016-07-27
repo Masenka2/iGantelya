@@ -1,0 +1,60 @@
+
+#include <LiquidCrystal.h>
+
+LiquidCrystal lcd(4, 5, 10, 11, 12, 13);
+int butt;
+int kol = 0;
+char a;
+int buttonState;
+int buttonPin = 2;
+int x = 0;
+
+void setup() {
+  pinMode(buttonPin, INPUT);
+  pinMode(6, OUTPUT);
+  delay(500);
+  
+  Serial.begin(9600); 
+  while (!Serial);   
+  Serial.println("Initializing IMU device..."); 
+}
+
+void loop() {
+  butt = digitalRead(2);
+  if (butt == 0)
+  {
+    if (x == 1)
+    {
+      x = 0;
+    }
+    else
+    {
+      x = 1;
+    }
+  }
+   
+  buttonState = digitalRead(buttonPin);
+  if (x == 1)
+  {
+    Serial.println(butt);
+    lcd.begin(16, 2);
+    lcd.print("100");
+    lcd.clear();
+    //Serial.print("g:\t");
+    //Serial.print(gzRaw);
+    delay(100);
+
+    lcd.print("Good");
+    //Serial.println();
+    //if (gzRaw > 8500)
+    //{
+      //kol++;
+      //lcd.print("Good ");
+      //lcd.print(kol);
+      //delay(2000);
+      //lcd.clear();
+    //}
+  }
+    
+}
+
