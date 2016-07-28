@@ -46,14 +46,11 @@ void loop() {
   butt = digitalRead(2);
   if (butt == 0)
   {
-    if (x == 1)
-    {
-      x = 0;
-    }
-    else
-    {
       x = 1;
-    }
+      digitalWrite(8, HIGH);
+      lcd.print("Wait...");
+      delay(100);
+      lcd.clear();
   }
 
   while (x == 1){
@@ -61,22 +58,25 @@ void loop() {
     butt = digitalRead(2);
     if (butt == 0)
     {
-      break; 
+      x = 0;
+      digitalWrite(8, LOW);
+      delay(100); 
     }
     time1 = millis();
     current = accel.readAZ();
     if (current > 11) {
       counter++;
-      //Serial.print("counter =");
-      //Serial.println(counter);
       time2 = millis();
-      //Serial.print("deltatime = ");
-      //Serial.println(time2 - time1);
-      delay(550);
+      Serial.print("deltatime = ");
+      Serial.println(time2 - time1);
+      lcd.print("Good ;) ");
+      lcd.print(counter);
+      delay(1000);
+      lcd.clear();
     }
   }
-
-  digitalWrite(8, LOW);
+  Serial.print("BUTTON!! = ");
+  Serial.println(butt);
 
   prev = current;   
 }
