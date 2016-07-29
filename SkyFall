@@ -47,8 +47,8 @@ void loop() {
   butt = digitalRead(BUTTON);
   if (butt == 0)
   {
-      Serial.print("butt=");
-      Serial.println(butt);
+      //Serial.print("butt=");
+      //Serial.println(butt);
 
       x = (x+1)%2;
 
@@ -88,8 +88,10 @@ void loop() {
       counter++;
       time2 = millis();
       
-      Serial.print("deltatime = ");
-      Serial.println(time2 - time1);
+      Serial.print(counter);
+      Serial.print("*");
+      Serial.print(time2 - time1);
+      Serial.print("*");
       lcd.print("Good ;) ");
       lcd.print(counter);
       delay(1000);
